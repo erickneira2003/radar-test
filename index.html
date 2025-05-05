@@ -9,9 +9,11 @@
       font-family: sans-serif;
       text-align: center;
       padding: 2rem;
+      background: #fff;
+      color: #333;
     }
     canvas {
-      max-width: 400px;
+      max-width: 450px;
       margin-top: 2rem;
     }
   </style>
@@ -22,30 +24,54 @@
   <canvas id="radarChart" width="400" height="400"></canvas>
 
   <script>
+    const scores = [78, 86, 91, 85, 92, 88, 96];
+    const labels = ['Acne', 'Wrinkles', 'Blackheads', 'Pores', 'Sensitivity', 'Roughness', 'Moisture'];
+
+    // Combine label + score
+    const labeledScores = labels.map((label, i) => `${label} (${scores[i]})`);
+
     const ctx = document.getElementById('radarChart').getContext('2d');
 
     new Chart(ctx, {
       type: 'radar',
       data: {
-        labels: [
-          'Acne', 'Wrinkles', 'Blackheads', 'Pores',
-          'Sensitivity', 'Roughness', 'Moisture'
-        ],
+        labels: labeledScores,
         datasets: [{
-          label: 'Sample Skin Scores',
-          data: [78, 86, 91, 85, 92, 88, 96],
-          backgroundColor: 'rgba(54, 162, 235, 0.2)',
-          borderColor: 'rgba(54, 162, 235, 1)',
-          pointBackgroundColor: 'rgba(54, 162, 235, 1)',
-          pointBorderColor: '#fff'
+          label: 'Skin Scores',
+          data: scores,
+          backgroundColor: 'rgba(128, 128, 128, 0.2)',  // light grey fill
+          borderColor: 'rgba(128, 128, 128, 1)',        // grey border
+          pointBackgroundColor: 'rgba(128, 128, 128, 1)',
+          pointBorderColor: '#fff',
+          borderWidth: 2
         }]
       },
       options: {
         responsive: true,
         scales: {
           r: {
+            ticks: {
+              display: false  // ✅ Hides 10–100 radial labels
+            },
             beginAtZero: true,
-            max: 100
+            max: 100,
+            pointLabels: {
+              font: {
+                size: 14
+              },
+              color: '#333'
+            },
+            grid: {
+              color: '#ccc'
+            },
+            angleLines: {
+              color: '#ccc'
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false  // optional: hide top legend label
           }
         }
       }
@@ -54,3 +80,4 @@
 
 </body>
 </html>
+
