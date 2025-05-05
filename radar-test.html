@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Radar Chart Test</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    canvas {
+      max-width: 400px;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Radar Chart Preview</h1>
+  <canvas id="radarChart" width="400" height="400"></canvas>
+
+  <script>
+    const ctx = document.getElementById('radarChart').getContext('2d');
+
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: [
+          'Acne', 'Wrinkles', 'Blackheads', 'Pores',
+          'Sensitivity', 'Roughness', 'Moisture'
+        ],
+        datasets: [{
+          label: 'Sample Skin Scores',
+          data: [78, 86, 91, 85, 92, 88, 96],
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+          pointBorderColor: '#fff'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            beginAtZero: true,
+            max: 100
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
